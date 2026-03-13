@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Users and Authentication | RHCSA Master Hub" />
+  <title>Users and Authentication | RHCSA Master Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .chapter-main { margin-left: 0 !important; max-width: 980px; margin-right: auto; padding-top: 28px; }
+    .chapter-toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .chapter-btn {
+      text-decoration: none; border: 1px solid var(--border); color: var(--text-1);
+      background: var(--bg-tertiary); border-radius: var(--radius); padding: 8px 12px;
+      font-size: 12px; display: inline-flex; align-items: center; gap: 7px;
+    }
+    .chapter-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .chapter-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+    .chapter-nav a { flex: 1; }
+    .mono { font-family: 'JetBrains Mono', Consolas, monospace; }
+    @media (max-width: 900px) { .chapter-main { padding-top: 12px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-left">
+      <div class="logo">
+        <span class="logo-icon"><i class="fa-brands fa-linux"></i></span>
+        <span>RHCSA <span class="logo-accent">Master Hub</span></span>
+      </div>
+    </div>
+    <div class="header-right">
+      <a class="btn-icon" href="../index.html#handbook"><i class="fas fa-house"></i> Home</a>
+    </div>
+  </header>
+
+  <main class="main-content chapter-main">
+    <section class="content-section sc-tools">
+      <div class="section-head">
+        <div class="section-icon"><i class="fas fa-book-open"></i></div>
+        <div class="section-meta">
+          <div class="section-ch-label">CH1</div>
+          <h2>Users and Authentication</h2>
+          <p>Manage local identities, passwords, group membership, and privilege delegation with sudo in a secure and auditable way.</p>
+        </div>
+      </div>
+
+      <div class="chapter-toolbar">
+        <a class="chapter-btn" href="../index.html#handbook"><i class="fas fa-arrow-left"></i> Back To Handbook</a>
+        <a class="chapter-btn" href="../index.html#simulator"><i class="fas fa-stopwatch"></i> Open Simulator</a>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-seedling"></i>From Scratch (Foundation)</div>
+        <div class="cb-body"><ul><li>Understand /etc/passwd and /etc/shadow field structure</li>
+<li>Create users with home directories and login shells</li>
+<li>Manage primary vs supplementary groups</li>
+<li>Set password aging and expiration policies with chage</li></ul></div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-rocket"></i>Advanced Execution</div>
+        <div class="cb-body"><ul><li>Apply least-privilege sudo entries by user and group in /etc/sudoers</li>
+<li>Lock/unlock accounts for incident response</li>
+<li>Use expiry and inactivity controls for temporary accounts</li>
+<li>Validate account policy drift quickly before exam submission</li></ul></div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-terminal"></i>Core Command Workflow</div>
+        <div class="cb-body"><pre><code class="language-bash">useradd -m analyst
+passwd analyst
+usermod -aG wheel analyst
+chage -M 90 -W 7 analyst
+id analyst
+chage -l analyst
+sudo -l</code></pre></div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-vial-circle-check"></i>Validation and Troubleshooting</div>
+        <div class="cb-body"><ul><li>getent passwd analyst</li>
+<li>grep analyst /etc/shadow</li>
+<li>groups analyst</li>
+<li>visudo -c</li></ul></div>
+      </div>
+
+      <div class="chapter-nav">
+        <span class="chapter-btn" style="opacity:.45;pointer-events:none"><i class="fas fa-ban"></i> End</span>
+        <a class='chapter-btn' href='02-files-text.html'><i class='fas fa-arrow-right'></i> Next Chapter</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>document.querySelectorAll('pre code').forEach(hljs.highlightElement);</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Scheduling: at, cron, anacron | RHCSA Master Hub" />
+  <title>Scheduling: at, cron, anacron | RHCSA Master Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .chapter-main { margin-left: 0 !important; max-width: 980px; margin-right: auto; padding-top: 28px; }
+    .chapter-toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .chapter-btn {
+      text-decoration: none; border: 1px solid var(--border); color: var(--text-1);
+      background: var(--bg-tertiary); border-radius: var(--radius); padding: 8px 12px;
+      font-size: 12px; display: inline-flex; align-items: center; gap: 7px;
+    }
+    .chapter-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .chapter-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+    .chapter-nav a { flex: 1; }
+    .mono { font-family: 'JetBrains Mono', Consolas, monospace; }
+    @media (max-width: 900px) { .chapter-main { padding-top: 12px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-left">
+      <div class="logo">
+        <span class="logo-icon"><i class="fa-brands fa-linux"></i></span>
+        <span>RHCSA <span class="logo-accent">Master Hub</span></span>
+      </div>
+    </div>
+    <div class="header-right">
+      <a class="btn-icon" href="../index.html#handbook"><i class="fas fa-house"></i> Home</a>
+    </div>
+  </header>
+
+  <main class="main-content chapter-main">
+    <section class="content-section sc-tools">
+      <div class="section-head">
+        <div class="section-icon"><i class="fas fa-book-open"></i></div>
+        <div class="section-meta">
+          <div class="section-ch-label">CH11</div>
+          <h2>Scheduling: at, cron, anacron</h2>
+          <p>Automate one-time and recurring jobs with proper ownership, syntax, and persistence controls.</p>
+        </div>
+      </div>
+
+      <div class="chapter-toolbar">
+        <a class="chapter-btn" href="../index.html#handbook"><i class="fas fa-arrow-left"></i> Back To Handbook</a>
+        <a class="chapter-btn" href="../index.html#simulator"><i class="fas fa-stopwatch"></i> Open Simulator</a>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-seedling"></i>From Scratch (Foundation)</div>
+        <div class="cb-body"><ul><li>Schedule one-time tasks with at and manage queue</li>
+<li>Create recurring tasks with crontab syntax</li>
+<li>Differentiate user crontab vs /etc/crontab format</li>
+<li>Use cron directories for periodic scripts</li></ul></div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-rocket"></i>Advanced Execution</div>
+        <div class="cb-body"><ul><li>Control cron usage via cron.allow/cron.deny</li>
+<li>Use anacron for non-24x7 systems</li>
+<li>Design idempotent scheduled scripts</li>
+<li>Audit scheduled execution via logs</li></ul></div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-terminal"></i>Core Command Workflow</div>
+        <div class="cb-body"><pre><code class="language-bash">at now + 5 minutes
+atq
+atrm 1
+crontab -e
+crontab -l
+cat /etc/crontab
+ls /etc/cron.daily</code></pre></div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-vial-circle-check"></i>Validation and Troubleshooting</div>
+        <div class="cb-body"><ul><li>tail -f /var/log/cron</li>
+<li>journalctl -u crond --since &quot;-30 min&quot;</li></ul></div>
+      </div>
+
+      <div class="chapter-nav">
+        <a class='chapter-btn' href='10-shell-scripting.html'><i class='fas fa-arrow-left'></i> Previous Chapter</a>
+        <a class='chapter-btn' href='11b-logs-time.html'><i class='fas fa-arrow-right'></i> Next Chapter</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>document.querySelectorAll('pre code').forEach(hljs.highlightElement);</script>
+</body>
+</html>

@@ -115,6 +115,9 @@
       <a href="#tools" class="nav-item" data-section="tools">
         <i class="fas fa-screwdriver-wrench"></i><span>Exam Tools</span><span class="chapter-done-dot" data-chap="tools"></span>
       </a>
+      <a href="#handbook" class="nav-item" data-section="handbook">
+        <i class="fas fa-book-open"></i><span>Full Handbook</span><span class="chapter-done-dot"></span>
+      </a>
     </nav>
   </aside>
 
@@ -560,6 +563,257 @@ podman generate systemd --name web --files --new</code></pre></div></div></div>
             <div class="cmd-card"><div class="cmd-name">ss -tulnp</div><div class="cmd-desc">Verify listening sockets.</div></div>
           </div>
           <div class="callout success"><span class="callout-icon"><i class="fas fa-circle-check"></i></span><div>Use a final 5-minute verification sweep before finishing: users, services, networking, storage, and SELinux labels.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="handbook" class="content-section sc-tools">
+      <div class="section-head">
+        <div class="section-icon"><i class="fas fa-book-open"></i></div>
+        <div class="section-meta">
+          <div class="section-ch-label">Complete Curriculum</div>
+          <h2>RHCSA Full Handbook: Scratch To Advanced</h2>
+          <p>End-to-end study material for every chapter with foundational concepts, command workflows, validation commands, and advanced exam tips.</p>
+        </div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-diagram-project"></i>Dedicated Chapter Pages</div>
+        <div class="cb-body">
+          <section class="chapter-grid" aria-label="handbook chapter pages">
+            <a class="chapter-card" href="chapters/01-users-auth.html" style="--card-color:#ee0000"><div class="card-top"><div class="card-icon"><i class="fas fa-user-shield"></i></div><div><div class="card-ch-label">CH1</div><div class="card-ch-title">Users and Authentication</div></div></div><p class="card-desc">Identity model, groups, password policy, and sudo delegation.</p></a>
+            <a class="chapter-card" href="chapters/02-files-text.html" style="--card-color:#ff7a1a"><div class="card-top"><div class="card-icon"><i class="fas fa-file-lines"></i></div><div><div class="card-ch-label">CH2</div><div class="card-ch-title">Files and Text</div></div></div><p class="card-desc">File operations, shell expansions, and grep/sort workflows.</p></a>
+            <a class="chapter-card" href="chapters/03-permissions-acl.html" style="--card-color:#d75a8a"><div class="card-top"><div class="card-icon"><i class="fas fa-lock"></i></div><div><div class="card-ch-label">CH3</div><div class="card-ch-title">Permissions and ACL</div></div></div><p class="card-desc">DAC bits, ownership, ACL, and special permission controls.</p></a>
+            <a class="chapter-card" href="chapters/04-software-repos.html" style="--card-color:#ffbc5a"><div class="card-top"><div class="card-icon"><i class="fas fa-box-open"></i></div><div><div class="card-ch-label">CH4</div><div class="card-ch-title">Software and Repos</div></div></div><p class="card-desc">dnf/rpm, repo tuning, and package validation strategy.</p></a>
+            <a class="chapter-card" href="chapters/06-process-monitoring.html" style="--card-color:#ff4d4d"><div class="card-top"><div class="card-icon"><i class="fas fa-gears"></i></div><div><div class="card-ch-label">CH6</div><div class="card-ch-title">Processes and Monitoring</div></div></div><p class="card-desc">Signals, job control, top, nice/renice, and tuned profiles.</p></a>
+            <a class="chapter-card" href="chapters/07-storage-basics.html" style="--card-color:#ff8b8b"><div class="card-top"><div class="card-icon"><i class="fas fa-hard-drive"></i></div><div><div class="card-ch-label">CH7</div><div class="card-ch-title">Storage Basics</div></div></div><p class="card-desc">Partitioning, filesystem creation, and mount workflows.</p></a>
+            <a class="chapter-card" href="chapters/08-lvm-swap.html" style="--card-color:#ff7a1a"><div class="card-top"><div class="card-icon"><i class="fas fa-layer-group"></i></div><div><div class="card-ch-label">CH8</div><div class="card-ch-title">LVM and Swap</div></div></div><p class="card-desc">PV/VG/LV lifecycle, growth paths, and swap persistence.</p></a>
+            <a class="chapter-card" href="chapters/09-mounting-fstab.html" style="--card-color:#c6b9bd"><div class="card-top"><div class="card-icon"><i class="fas fa-plug-circle-check"></i></div><div><div class="card-ch-label">CH9</div><div class="card-ch-title">fstab Reliability</div></div></div><p class="card-desc">Boot-safe mount definitions and validation discipline.</p></a>
+            <a class="chapter-card" href="chapters/10-shell-scripting.html" style="--card-color:#ee0000"><div class="card-top"><div class="card-icon"><i class="fas fa-terminal"></i></div><div><div class="card-ch-label">CH10</div><div class="card-ch-title">Shell Scripting</div></div></div><p class="card-desc">Automation scripts from strict mode to audit pipelines.</p></a>
+            <a class="chapter-card" href="chapters/11-scheduling.html" style="--card-color:#ff4d4d"><div class="card-top"><div class="card-icon"><i class="fas fa-clock-rotate-left"></i></div><div><div class="card-ch-label">CH11</div><div class="card-ch-title">Scheduling</div></div></div><p class="card-desc">at, cron, anacron, and execution auditing.</p></a>
+            <a class="chapter-card" href="chapters/11b-logs-time.html" style="--card-color:#ffbc5a"><div class="card-top"><div class="card-icon"><i class="fas fa-book"></i></div><div><div class="card-ch-label">CH11b</div><div class="card-ch-title">Logs and Time</div></div></div><p class="card-desc">Journald, rsyslog, chrony, and incident timeline clarity.</p></a>
+            <a class="chapter-card" href="chapters/12-networking.html" style="--card-color:#d75a8a"><div class="card-top"><div class="card-icon"><i class="fas fa-wifi"></i></div><div><div class="card-ch-label">CH12</div><div class="card-ch-title">Networking</div></div></div><p class="card-desc">nmcli static profiles and network troubleshooting ladder.</p></a>
+            <a class="chapter-card" href="chapters/15-selinux-firewall.html" style="--card-color:#ee0000"><div class="card-top"><div class="card-icon"><i class="fas fa-shield-virus"></i></div><div><div class="card-ch-label">CH15</div><div class="card-ch-title">SELinux and Firewall</div></div></div><p class="card-desc">Context policy fixes, booleans, ports, and zone control.</p></a>
+            <a class="chapter-card" href="chapters/networking-lab.html" style="--card-color:#ff8b8b"><div class="card-top"><div class="card-icon"><i class="fas fa-network-wired"></i></div><div><div class="card-ch-label">LAB</div><div class="card-ch-title">Networking Lab</div></div></div><p class="card-desc">Scenario drills for rapid connectivity diagnostics.</p></a>
+            <a class="chapter-card" href="chapters/nfs-and-autofs.html" style="--card-color:#ff7a1a"><div class="card-top"><div class="card-icon"><i class="fas fa-folder-tree"></i></div><div><div class="card-ch-label">NFS</div><div class="card-ch-title">NFS and AutoFS</div></div></div><p class="card-desc">Manual, persistent, and on-demand remote storage mapping.</p></a>
+            <a class="chapter-card" href="chapters/16-podman-containers.html" style="--card-color:#c6b9bd"><div class="card-top"><div class="card-icon"><i class="fas fa-cubes"></i></div><div><div class="card-ch-label">CH16</div><div class="card-ch-title">Podman</div></div></div><p class="card-desc">Container lifecycle, rootless rules, and systemd service mode.</p></a>
+            <a class="chapter-card" href="chapters/tools-checklist.html" style="--card-color:#ee0000"><div class="card-top"><div class="card-icon"><i class="fas fa-screwdriver-wrench"></i></div><div><div class="card-ch-label">TOOLS</div><div class="card-ch-title">Final Checklist</div></div></div><p class="card-desc">End-of-exam verification sequence to protect marks.</p></a>
+          </section>
+        </div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-map"></i>Syllabus Coverage Matrix</div>
+        <div class="cb-body">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Chapter</th><th>Core Skills</th><th>Advanced Focus</th><th>Validation</th></tr></thead>
+              <tbody>
+                <tr><td>CH1 Users & Auth</td><td>useradd, passwd, groups</td><td>sudo policy, password aging</td><td>id, getent, chage -l</td></tr>
+                <tr><td>CH2 Files & Text</td><td>cp, mv, rm, grep</td><td>expansions, pattern filters</td><td>grep/sort output checks</td></tr>
+                <tr><td>CH3 Permissions</td><td>chmod, chown, ACL</td><td>SUID/SGID/sticky, umask</td><td>ls -l, ls -Z, getfacl</td></tr>
+                <tr><td>CH4 Software</td><td>dnf install/remove</td><td>repos, package history</td><td>rpm -q, dnf repolist</td></tr>
+                <tr><td>CH6 Process</td><td>ps, top, kill</td><td>nice/renice, tuned</td><td>ps -l, uptime, systemctl</td></tr>
+                <tr><td>CH7/8/9 Storage</td><td>partition, fs, mount</td><td>LVM lifecycle, swap</td><td>lsblk, blkid, mount -a</td></tr>
+                <tr><td>CH10 Scripting</td><td>bash basics</td><td>find+exec, automation</td><td>shellcheck mindset, output file checks</td></tr>
+                <tr><td>CH11 Scheduling</td><td>at, crontab</td><td>anacron reliability</td><td>crontab -l, logs</td></tr>
+                <tr><td>CH11b Logs & Time</td><td>journal, rsyslog</td><td>chrony/NTP config</td><td>chronyc sources, timedatectl</td></tr>
+                <tr><td>CH12 Networking</td><td>nmcli, ip, route</td><td>persistent profiles</td><td>ip a, ip r, ping, ss</td></tr>
+                <tr><td>CH15 SELinux + Firewall</td><td>modes, contexts</td><td>semanage port, booleans</td><td>sestatus, restorecon, firewall-cmd</td></tr>
+                <tr><td>NFS + Podman</td><td>mount exports, container run</td><td>autofs, rootless systemd</td><td>showmount, podman ps</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-layer-group"></i>Detailed Chapter Playbook</div>
+        <div class="cb-body">
+          <h3><i class="fas fa-user-shield"></i>CH1: Users, Groups, Authentication</h3>
+          <ul>
+            <li>Start with identity model: UID, GID, primary vs secondary groups, local users vs system users.</li>
+            <li>Create user accounts with home directories and secure shells, then enforce password policy.</li>
+            <li>Advanced: grant least-privilege sudo through user/group entries and validate with sudo -l.</li>
+          </ul>
+          <pre><code class="language-bash">useradd -m devops
+passwd devops
+usermod -aG wheel devops
+chage -M 90 -W 7 devops
+id devops
+chage -l devops</code></pre>
+
+          <h3><i class="fas fa-file-lines"></i>CH2: File Management and Text Processing</h3>
+          <ul>
+            <li>Master create/copy/move/delete safely with recursive and force options only when needed.</li>
+            <li>Use wildcard, brace, variable, and command expansion to speed up repetitive work.</li>
+            <li>Advanced filtering combines grep, sort, tail/head for exam-grade quick extraction.</li>
+          </ul>
+          <pre><code class="language-bash">mkdir -p project/{docs,logs,backup}
+cp -r project project-copy
+grep -r "PermitRootLogin" /etc/ssh/
+sort -u users.txt
+tail -f /var/log/messages</code></pre>
+
+          <h3><i class="fas fa-lock"></i>CH3: Permissions, Ownership, ACL, Special Bits</h3>
+          <ul>
+            <li>Use symbolic and octal permissions correctly for files and directories.</li>
+            <li>Understand ownership flow with chown/chgrp in collaborative environments.</li>
+            <li>Advanced: SGID team directories, sticky-bit shared paths, ACL inheritance.</li>
+          </ul>
+          <pre><code class="language-bash">chmod 2770 /shared/project
+chown root:devops /shared/project
+setfacl -m u:qa:rwx /shared/project
+setfacl -m d:g:devops:rwx /shared/project
+getfacl /shared/project</code></pre>
+
+          <h3><i class="fas fa-box-open"></i>CH4: Package and Repository Operations</h3>
+          <ul>
+            <li>Use dnf for install/remove/info/search/provides workflows.</li>
+            <li>Distinguish update vs upgrade behavior for production-safe decisions.</li>
+            <li>Advanced: custom repo setup and package history rollback awareness.</li>
+          </ul>
+          <pre><code class="language-bash">dnf repolist
+dnf install -y httpd
+dnf provides "*/semanage"
+dnf history
+rpm -q httpd</code></pre>
+
+          <h3><i class="fas fa-gears"></i>CH6: Process, Signals, Priority, Monitoring</h3>
+          <ul>
+            <li>Understand foreground/background job control and signal behavior.</li>
+            <li>Diagnose CPU/memory pressure using top, ps, uptime, and service logs.</li>
+            <li>Advanced: tune workload priority with nice/renice and tuned profiles.</li>
+          </ul>
+          <pre><code class="language-bash">ps aux | grep httpd
+top
+kill -15 PID
+renice -n -5 -p PID
+tuned-adm active</code></pre>
+
+          <h3><i class="fas fa-hard-drive"></i>CH7/9: Partition, Filesystem, Mounting</h3>
+          <ul>
+            <li>Create partitions, format XFS/EXT4, mount temporarily and permanently.</li>
+            <li>Always prefer UUID in fstab to avoid device name drift.</li>
+            <li>Advanced: use mount -a and daemon-reload for safe validation before reboot.</li>
+          </ul>
+          <pre><code class="language-bash">lsblk -fp
+mkfs.xfs /dev/vdb1
+mkdir -p /data
+blkid /dev/vdb1
+# add UUID entry to /etc/fstab
+mount -a</code></pre>
+
+          <h3><i class="fas fa-layer-group"></i>CH8: LVM and Swap (Lifecycle)</h3>
+          <ul>
+            <li>LVM chain: PV -&gt; VG -&gt; LV, then filesystem and mount.</li>
+            <li>Extend online with lvextend and grow filesystem appropriately.</li>
+            <li>Advanced: know safe reduction process for ext filesystems and deletion order.</li>
+          </ul>
+          <pre><code class="language-bash">pvcreate /dev/vdc1
+vgcreate vgdata /dev/vdc1
+lvcreate -n lvapp -L 4G vgdata
+mkfs.xfs /dev/vgdata/lvapp
+lvextend -L +1G /dev/vgdata/lvapp
+xfs_growfs /dev/vgdata/lvapp</code></pre>
+
+          <h3><i class="fas fa-terminal"></i>CH10: Shell Scripting and Automation</h3>
+          <ul>
+            <li>Write scripts with shebang and strict mode for reliability.</li>
+            <li>Automate repetitive checks (services, permissions, reports).</li>
+            <li>Advanced: combine find -exec with redirection for audit pipelines.</li>
+          </ul>
+          <pre><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+find /usr -perm /g+s -size +30k -size -45k &gt; /root/usr-files
+for s in sshd chronyd firewalld; do systemctl is-active --quiet "$s" || echo "$s down"; done</code></pre>
+
+          <h3><i class="fas fa-clock-rotate-left"></i>CH11: Task Scheduling</h3>
+          <ul>
+            <li>Use at for one-time tasks and crontab for recurring jobs.</li>
+            <li>Understand per-user vs system crontab format differences.</li>
+            <li>Advanced: apply cron allow/deny and anacron behavior for missed jobs.</li>
+          </ul>
+          <pre><code class="language-bash">at now + 10 minutes
+crontab -e
+crontab -l
+cat /etc/crontab
+ls /etc/cron.daily</code></pre>
+
+          <h3><i class="fas fa-book"></i>CH11b: Logs and Time Synchronization</h3>
+          <ul>
+            <li>Track logs with journalctl and traditional /var/log files.</li>
+            <li>Configure timezone and chrony NTP client correctly.</li>
+            <li>Advanced: investigate authentication, cron, and service-specific failures quickly.</li>
+          </ul>
+          <pre><code class="language-bash">journalctl -xe
+tail -f /var/log/secure
+timedatectl
+dnf install -y chrony
+chronyc sources</code></pre>
+
+          <h3><i class="fas fa-wifi"></i>CH12 + Networking: Interfaces, Routes, DNS</h3>
+          <ul>
+            <li>Set static IPv4 with nmcli and activate profile correctly.</li>
+            <li>Verify interface, route, DNS, and connectivity in sequence.</li>
+            <li>Advanced: troubleshoot from link layer to name resolution rapidly.</li>
+          </ul>
+          <pre><code class="language-bash">nmcli con show
+nmcli con mod "Wired connection 1" ipv4.addresses 192.168.56.20/24
+nmcli con mod "Wired connection 1" ipv4.gateway 192.168.56.1
+nmcli con mod "Wired connection 1" ipv4.method manual
+nmcli con up "Wired connection 1"
+ip a; ip r; ping -c 3 8.8.8.8</code></pre>
+
+          <h3><i class="fas fa-shield-virus"></i>CH15: SELinux and Firewall</h3>
+          <ul>
+            <li>Understand SELinux mode, context, type enforcement, and policy tools.</li>
+            <li>Use restorecon/semanage for permanent label and port policy fixes.</li>
+            <li>Advanced: integrate firewall zones/services with secure service deployment.</li>
+          </ul>
+          <pre><code class="language-bash">getenforce
+sestatus
+semanage fcontext -a -t httpd_sys_content_t "/srv/web(/.*)?"
+restorecon -Rv /srv/web
+semanage port -a -t http_port_t -p tcp 8080
+firewall-cmd --add-service=http --permanent
+firewall-cmd --reload</code></pre>
+
+          <h3><i class="fas fa-folder-tree"></i>NFS: Manual, Persistent, and AutoFS</h3>
+          <ul>
+            <li>Mount exports manually for testing, then persist in fstab if always required.</li>
+            <li>Use autofs for on-demand mounts in larger environments.</li>
+            <li>Advanced: validate export visibility and mount options before exam submission.</li>
+          </ul>
+          <pre><code class="language-bash">dnf install -y nfs-utils autofs
+showmount --exports server
+mount -t nfs server:/export /mnt/nfs
+umount /mnt/nfs
+# configure /etc/fstab or autofs maps
+systemctl enable --now autofs</code></pre>
+
+          <h3><i class="fas fa-cubes"></i>Podman: Rootful/Rootless Containers</h3>
+          <ul>
+            <li>Search, pull, run, inspect, and remove images/containers.</li>
+            <li>Use port mapping, volume mounting with :Z, and exec for debugging.</li>
+            <li>Advanced: generate systemd units and enable linger for rootless auto-start.</li>
+          </ul>
+          <pre><code class="language-bash">podman search httpd
+podman pull registry.access.redhat.com/ubi9/httpd-24
+podman run -d --name web -p 8080:8080 -v /backup:/var/www/html:Z registry.access.redhat.com/ubi9/httpd-24
+podman ps
+podman generate systemd --name web --files
+loginctl enable-linger username</code></pre>
+
+          <h3><i class="fas fa-screwdriver-wrench"></i>Final Exam Validation Checklist</h3>
+          <ol class="steps">
+            <li><div class="step-num">1</div><div class="step-body"><strong>Users:</strong> id, groups, sudo policy, password age.</div></li>
+            <li><div class="step-num">2</div><div class="step-body"><strong>Storage:</strong> lsblk, blkid, mount -a, swapon --show.</div></li>
+            <li><div class="step-num">3</div><div class="step-body"><strong>Services:</strong> systemctl is-active/is-enabled checks.</div></li>
+            <li><div class="step-num">4</div><div class="step-body"><strong>Network:</strong> ip a/ip r, hostname, DNS ping.</div></li>
+            <li><div class="step-num">5</div><div class="step-body"><strong>Security:</strong> SELinux contexts + firewall rules validated.</div></li>
+          </ol>
+          <div class="callout success"><span class="callout-icon"><i class="fas fa-circle-check"></i></span><div>This handbook is designed for complete RHCSA preparation from foundation to advanced execution under exam constraints.</div></div>
         </div>
       </div>
     </section>
