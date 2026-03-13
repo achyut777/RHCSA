@@ -109,6 +109,9 @@
       <a href="#podman" class="nav-item" data-section="podman">
         <i class="fas fa-cubes"></i><span>Podman Basics</span><span class="chapter-done-dot" data-chap="podman"></span>
       </a>
+      <a href="#simulator" class="nav-item" data-section="simulator">
+        <i class="fas fa-stopwatch"></i><span>Exam Simulator</span><span class="chapter-done-dot" data-chap="simulator"></span>
+      </a>
       <a href="#tools" class="nav-item" data-section="tools">
         <i class="fas fa-screwdriver-wrench"></i><span>Exam Tools</span><span class="chapter-done-dot" data-chap="tools"></span>
       </a>
@@ -117,6 +120,7 @@
 
   <main id="mainContent" class="main-content">
     <section id="home" class="hero">
+      <div class="hero-pattern" aria-hidden="true"></div>
       <div class="hero-badge"><i class="fas fa-bolt"></i> Advanced Training Portal</div>
       <h1 class="hero-title">RHCSA From Practice To Precision</h1>
       <p class="hero-subtitle">
@@ -485,6 +489,61 @@ podman ps
 podman generate systemd --name web --files --new</code></pre></div></div></div>
     </section>
 
+    <section id="simulator" class="content-section sc-sim">
+      <div class="section-head">
+        <div class="section-icon"><i class="fas fa-stopwatch"></i></div>
+        <div class="section-meta"><div class="section-ch-label">Advanced Practice</div><h2>RHCSA Exam Simulator</h2><p>Train with timed practice, randomized tasks, and persistent notes to simulate real exam pressure.</p></div>
+        <button class="complete-btn" data-chap="simulator"><i class="far fa-circle"></i> Mark Complete</button>
+      </div>
+
+      <div class="sim-grid">
+        <article class="cb sim-card">
+          <div class="cb-title"><i class="fas fa-hourglass-half"></i>Exam Timer</div>
+          <div class="cb-body">
+            <div id="examTimer" class="exam-timer">02:30:00</div>
+            <div class="action-row">
+              <button id="timerStart" class="btn-solid"><i class="fas fa-play"></i> Start</button>
+              <button id="timerPause" class="btn-solid ghost"><i class="fas fa-pause"></i> Pause</button>
+              <button id="timerReset" class="btn-solid danger"><i class="fas fa-rotate-left"></i> Reset</button>
+            </div>
+            <p class="mini-note">Timer state is saved in your browser so your session can continue after refresh.</p>
+          </div>
+        </article>
+
+        <article class="cb sim-card">
+          <div class="cb-title"><i class="fas fa-chart-pie"></i>Readiness Score</div>
+          <div class="cb-body">
+            <div id="simProgressRing" class="sim-progress-ring" style="--sim-pct:0">
+              <span id="simProgressText">0%</span>
+            </div>
+            <p class="mini-note">This score mirrors your completion across all RHCSA training sections.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-dice"></i>Randomized Exam Task Generator</div>
+        <div class="cb-body">
+          <div class="action-row">
+            <button id="generateTaskBtn" class="btn-solid"><i class="fas fa-shuffle"></i> Generate Task</button>
+            <button id="showTaskSolutionBtn" class="btn-solid ghost"><i class="fas fa-key"></i> Reveal Command</button>
+          </div>
+          <div id="generatedTask" class="task-output">Click Generate Task to start a random RHCSA challenge.</div>
+          <pre id="generatedTaskSolution" class="task-solution" hidden><code class="language-bash"></code></pre>
+        </div>
+      </div>
+
+      <div class="cb">
+        <div class="cb-title"><i class="fas fa-pen"></i>Practice Notes (Auto Save)</div>
+        <div class="cb-body">
+          <textarea id="practiceNotes" class="practice-notes" placeholder="Write your command plans, troubleshooting notes, and exam checklist here..."></textarea>
+          <div class="action-row">
+            <button id="clearPracticeNotes" class="btn-solid danger"><i class="fas fa-trash"></i> Clear Notes</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="tools" class="content-section sc-tools">
       <div class="section-head">
         <div class="section-icon"><i class="fas fa-screwdriver-wrench"></i></div>
@@ -510,6 +569,26 @@ podman generate systemd --name web --files --new</code></pre></div></div></div>
     <i class="fas fa-arrow-up"></i>
   </button>
 
+  <button id="chatbotToggle" class="chatbot-toggle" aria-label="Open Linux chatbot">
+    <i class="fas fa-robot"></i>
+  </button>
+
+  <section id="chatbotPanel" class="chatbot-panel" aria-label="Linux chatbot" aria-live="polite">
+    <header class="chatbot-head">
+      <div class="chatbot-title"><i class="fas fa-terminal"></i> Linux Helper Bot</div>
+      <button id="chatbotClose" class="chatbot-close" aria-label="Close chatbot"><i class="fas fa-xmark"></i></button>
+    </header>
+    <div id="chatbotMessages" class="chatbot-messages">
+      <div class="chat-msg bot">
+        Ask any Linux or RHCSA question. I answer only Linux topics like users, permissions, SELinux, networking, storage, systemd, and shell commands.
+      </div>
+    </div>
+    <form id="chatbotForm" class="chatbot-form">
+      <input id="chatbotInput" class="chatbot-input" type="text" placeholder="Ask Linux question..." autocomplete="off" />
+      <button class="chatbot-send" type="submit"><i class="fas fa-paper-plane"></i></button>
+    </form>
+  </section>
+
   <div id="shortcutsModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
     <div class="modal-box">
       <div class="modal-title">
@@ -520,6 +599,7 @@ podman generate systemd --name web --files --new</code></pre></div></div></div>
         <div class="sk-key"><kbd>/</kbd></div><div class="sk-desc">Focus search</div>
         <div class="sk-key"><kbd>?</kbd></div><div class="sk-desc">Toggle shortcuts modal</div>
         <div class="sk-key"><kbd>Alt</kbd><kbd>B</kbd></div><div class="sk-desc">Back to top</div>
+        <div class="sk-key"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>X</kbd></div><div class="sk-desc">Jump to exam simulator</div>
         <div class="sk-key"><kbd>Esc</kbd></div><div class="sk-desc">Close search and modal</div>
       </div>
     </div>
