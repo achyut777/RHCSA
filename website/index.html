@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress"></div>
   <header class="site-header">
     <div class="header-left">
       <button id="sidebarToggle" class="btn-icon" aria-label="Toggle sidebar">
@@ -34,6 +35,10 @@
     </div>
 
     <div class="header-right">
+      <button id="focusModeBtn" class="btn-icon" aria-label="Focus mode" title="Pomodoro Focus Mode">
+        <i class="fas fa-brain"></i>
+      </button>
+      <span id="focusIndicator" class="focus-indicator"><i class="fas fa-circle"></i> <span id="focusTimerDisplay">25:00</span></span>
       <button id="shortcutsBtn" class="btn-icon" aria-label="Keyboard shortcuts">
         <i class="fas fa-keyboard"></i>
       </button>
@@ -50,6 +55,13 @@
       </div>
       <div class="progress-bar">
         <div id="overallProgress" class="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <div class="streak-wrap">
+      <div class="streak-badge" id="streakBadge">
+        <span class="streak-fire">🔥</span>
+        <span id="streakCount">0 day streak</span>
       </div>
     </div>
 
@@ -124,6 +136,10 @@
   <main id="mainContent" class="main-content">
     <section id="home" class="hero">
       <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="hero-particles" aria-hidden="true">
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      </div>
       <div class="hero-badge"><i class="fas fa-bolt"></i> Advanced Training Portal</div>
       <h1 class="hero-title">RHCSA From Practice To Precision</h1>
       <p class="hero-subtitle">
@@ -819,6 +835,22 @@ loginctl enable-linger username</code></pre>
     </section>
   </main>
 
+  <footer class="site-footer" id="siteFooter">
+    <svg class="footer-wave" viewBox="0 0 1440 40" preserveAspectRatio="none">
+      <path d="M0,20 C360,40 720,0 1080,20 C1260,30 1380,10 1440,20 L1440,0 L0,0 Z"></path>
+    </svg>
+    <div class="footer-content">
+      <div class="footer-brand"><i class="fa-brands fa-linux"></i> RHCSA Master Hub</div>
+      <div class="footer-links">
+        <a href="#home">Dashboard</a>
+        <a href="#simulator">Simulator</a>
+        <a href="#handbook">Handbook</a>
+        <a href="https://github.com/achyut777" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-copy">Built with precision by Achyut Hadavani · RHCSA 300/300</div>
+    </div>
+  </footer>
+
   <button id="backToTop" class="back-to-top" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
   </button>
@@ -856,6 +888,31 @@ loginctl enable-linger username</code></pre>
         <div class="sk-key"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>X</kbd></div><div class="sk-desc">Jump to exam simulator</div>
         <div class="sk-key"><kbd>Esc</kbd></div><div class="sk-desc">Close search and modal</div>
       </div>
+    </div>
+  </div>
+
+  <!-- Command Palette -->
+  <div id="cmdPaletteOverlay" class="cmd-palette-overlay">
+    <div class="cmd-palette">
+      <input id="cmdPaletteInput" class="cmd-palette-input" type="text" placeholder="Type a command or section name…" autocomplete="off" />
+      <div id="cmdPaletteResults" class="cmd-palette-results"></div>
+      <div class="cmd-palette-footer">
+        <span><kbd>↑↓</kbd> navigate</span>
+        <span><kbd>Enter</kbd> go</span>
+        <span><kbd>Esc</kbd> close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flashcard Quiz -->
+  <div id="flashcardOverlay" class="flashcard-overlay">
+    <div class="flashcard-box">
+      <button class="flashcard-close" id="flashcardClose"><i class="fas fa-xmark"></i></button>
+      <div class="flashcard-label">Command Flashcard</div>
+      <div class="flashcard-question" id="flashcardQ">Press F to start</div>
+      <div class="flashcard-options" id="flashcardOptions"></div>
+      <div class="flashcard-score">Score: <strong id="flashcardScore">0</strong> / <span id="flashcardTotal">0</span></div>
+      <button class="btn-solid" id="flashcardNext" style="margin-top:14px"><i class="fas fa-forward"></i> Next Card</button>
     </div>
   </div>
 

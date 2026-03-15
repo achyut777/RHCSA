@@ -550,4 +550,309 @@ document.addEventListener('DOMContentLoaded', () => {
     if (chatbotInput) chatbotInput.value = '';
   });
 
+  /* ============================================================
+     SCROLL PROGRESS BAR
+     ============================================================ */
+  const scrollProgress = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    if (!scrollProgress) return;
+    const winH = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = winH > 0 ? (window.scrollY / winH) * 100 : 0;
+    scrollProgress.style.width = `${pct}%`;
+  });
+
+  /* ============================================================
+     DAILY STUDY STREAK
+     ============================================================ */
+  const STREAK_KEY = 'rhcsa-streak';
+  function updateStreak() {
+    const today = new Date().toISOString().slice(0, 10);
+    let data = JSON.parse(localStorage.getItem(STREAK_KEY) || '{"last":"","count":0}');
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    if (data.last === today) { /* already recorded */ }
+    else if (data.last === yesterday) { data.count++; data.last = today; }
+    else { data.count = 1; data.last = today; }
+    localStorage.setItem(STREAK_KEY, JSON.stringify(data));
+    const el = document.getElementById('streakCount');
+    if (el) el.textContent = `${data.count} day streak`;
+  }
+  updateStreak();
+
+  /* ============================================================
+     COMMAND PALETTE (Ctrl+K)
+     ============================================================ */
+  const cmdOverlay = document.getElementById('cmdPaletteOverlay');
+  const cmdInput = document.getElementById('cmdPaletteInput');
+  const cmdResults = document.getElementById('cmdPaletteResults');
+  let cmdSelectedIdx = -1;
+
+  // Build palette items from nav + search index
+  const paletteItems = [];
+  navItems.forEach(item => {
+    paletteItems.push({
+      text: item.querySelector('span')?.textContent || '',
+      icon: item.querySelector('i')?.className || 'fas fa-arrow-right',
+      secId: item.dataset.section
+    });
+  });
+  index.forEach(i => {
+    if (i.type === 'command') {
+      paletteItems.push({ text: i.text, icon: 'fas fa-terminal', secId: i.secId, sub: i.secTitle });
+    }
+  });
+
+  function openCmdPalette() {
+    if (!cmdOverlay) return;
+    cmdOverlay.classList.add('active');
+    cmdInput.value = '';
+    cmdSelectedIdx = -1;
+    renderPaletteResults('');
+    setTimeout(() => cmdInput?.focus(), 50);
+  }
+  function closeCmdPalette() { cmdOverlay?.classList.remove('active'); }
+
+  function renderPaletteResults(q) {
+    if (!cmdResults) return;
+    const filtered = q.length < 1 ? paletteItems.slice(0, 12)
+      : paletteItems.filter(p => p.text.toLowerCase().includes(q.toLowerCase())).slice(0, 12);
+    cmdResults.innerHTML = filtered.map((p, i) => `
+      <div class="cmd-palette-item${i === cmdSelectedIdx ? ' selected' : ''}" data-sec="${p.secId}" data-idx="${i}">
+        <i class="${p.icon}"></i>
+        <div><div class="cmd-palette-item-text">${p.text}</div>${p.sub ? `<div class="cmd-palette-item-sub">${p.sub}</div>` : ''}</div>
+      </div>`).join('');
+    cmdResults.querySelectorAll('.cmd-palette-item').forEach(el => {
+      el.addEventListener('click', () => {
+        document.getElementById(el.dataset.sec)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        closeCmdPalette();
+      });
+    });
+  }
+
+  cmdInput?.addEventListener('input', () => {
+    cmdSelectedIdx = -1;
+    renderPaletteResults(cmdInput.value.trim());
+  });
+
+  cmdInput?.addEventListener('keydown', e => {
+    const items = cmdResults?.querySelectorAll('.cmd-palette-item') || [];
+    if (e.key === 'ArrowDown') { e.preventDefault(); cmdSelectedIdx = Math.min(cmdSelectedIdx + 1, items.length - 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); cmdSelectedIdx = Math.max(cmdSelectedIdx - 1, 0); }
+    else if (e.key === 'Enter' && items[cmdSelectedIdx]) {
+      e.preventDefault();
+      const sec = items[cmdSelectedIdx].dataset.sec;
+      document.getElementById(sec)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      closeCmdPalette();
+      return;
+    }
+    items.forEach((it, i) => it.classList.toggle('selected', i === cmdSelectedIdx));
+    if (items[cmdSelectedIdx]) items[cmdSelectedIdx].scrollIntoView({ block: 'nearest' });
+  });
+
+  cmdOverlay?.addEventListener('click', e => { if (e.target === cmdOverlay) closeCmdPalette(); });
+
+  /* ============================================================
+     FLASHCARD QUIZ
+     ============================================================ */
+  const FLASHCARD_DATA = [
+    { cmd: 'useradd -m devops', desc: 'Create user with home directory' },
+    { cmd: 'passwd analyst', desc: 'Set or reset account password' },
+    { cmd: 'chage -M 90 devops', desc: 'Set max password age in days' },
+    { cmd: 'restorecon -Rv /var/www', desc: 'Fix SELinux context labels recursively' },
+    { cmd: 'setsebool -P httpd_can_network_connect on', desc: 'Allow httpd outbound network access' },
+    { cmd: 'nmcli con mod eth0 ipv4.method manual', desc: 'Set connection to static IP mode' },
+    { cmd: 'lvextend -L +1G /dev/vgdata/lvlogs', desc: 'Extend logical volume by 1GB' },
+    { cmd: 'xfs_growfs /dev/vgdata/lvlogs', desc: 'Grow XFS filesystem after LV extend' },
+    { cmd: 'mount -a', desc: 'Validate all fstab entries' },
+    { cmd: 'firewall-cmd --add-service=http --permanent', desc: 'Allow HTTP through firewall permanently' },
+    { cmd: 'systemctl enable --now httpd', desc: 'Start and enable service at boot' },
+    { cmd: 'podman generate systemd --name web --files', desc: 'Create systemd unit from container' },
+    { cmd: 'setfacl -m u:qa:rwx /project', desc: 'Grant user-specific ACL access' },
+    { cmd: 'chmod 2770 /shared', desc: 'Set SGID on directory for group inheritance' },
+    { cmd: 'crontab -e', desc: 'Edit per-user cron schedule' },
+    { cmd: 'journalctl -u sshd --since "-15 min"', desc: 'Filter journal by unit and time' },
+  ];
+
+  const fcOverlay = document.getElementById('flashcardOverlay');
+  const fcQ = document.getElementById('flashcardQ');
+  const fcOpts = document.getElementById('flashcardOptions');
+  const fcScore = document.getElementById('flashcardScore');
+  const fcTotal = document.getElementById('flashcardTotal');
+  const fcNext = document.getElementById('flashcardNext');
+  const fcClose = document.getElementById('flashcardClose');
+  let fcCorrect = 0, fcAsked = 0, fcAnswered = false;
+
+  function shuffle(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+
+  function loadFlashcard() {
+    if (!fcQ || !fcOpts) return;
+    fcAnswered = false;
+    const card = FLASHCARD_DATA[Math.floor(Math.random() * FLASHCARD_DATA.length)];
+    fcQ.textContent = card.cmd;
+    const wrong = shuffle(FLASHCARD_DATA.filter(c => c.desc !== card.desc)).slice(0, 3).map(c => c.desc);
+    const options = shuffle([card.desc, ...wrong]);
+    fcOpts.innerHTML = options.map(o => `<button class="flashcard-option" data-correct="${o === card.desc}">${o}</button>`).join('');
+    fcOpts.querySelectorAll('.flashcard-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (fcAnswered) return;
+        fcAnswered = true;
+        fcAsked++;
+        if (btn.dataset.correct === 'true') { btn.classList.add('correct'); fcCorrect++; }
+        else {
+          btn.classList.add('wrong');
+          fcOpts.querySelector('[data-correct="true"]')?.classList.add('correct');
+        }
+        if (fcScore) fcScore.textContent = fcCorrect;
+        if (fcTotal) fcTotal.textContent = fcAsked;
+      });
+    });
+  }
+
+  function openFlashcards() { fcOverlay?.classList.add('active'); fcCorrect = 0; fcAsked = 0; if (fcScore) fcScore.textContent = '0'; if (fcTotal) fcTotal.textContent = '0'; loadFlashcard(); }
+  function closeFlashcards() { fcOverlay?.classList.remove('active'); }
+
+  fcNext?.addEventListener('click', loadFlashcard);
+  fcClose?.addEventListener('click', closeFlashcards);
+  fcOverlay?.addEventListener('click', e => { if (e.target === fcOverlay) closeFlashcards(); });
+
+  /* ============================================================
+     CONFETTI ON 100% COMPLETION
+     ============================================================ */
+  let confettiFired = false;
+  const origRenderProgress = renderProgress;
+
+  function renderProgressWithConfetti() {
+    origRenderProgress();
+    const done = CHAPS.filter(c => progress[c]).length;
+    if (done === CHAPS.length && !confettiFired) {
+      confettiFired = true;
+      fireConfetti();
+    } else if (done < CHAPS.length) {
+      confettiFired = false;
+    }
+  }
+
+  // Patch progress buttons to use enhanced version
+  document.querySelectorAll('.complete-btn').forEach(btn => {
+    btn.addEventListener('click', renderProgressWithConfetti);
+  });
+
+  function fireConfetti() {
+    const container = document.createElement('div');
+    container.className = 'confetti-container';
+    document.body.appendChild(container);
+    const colors = ['#ee0000', '#ff7a1a', '#ffbc5a', '#3fb950', '#d75a8a', '#ff8b8b', '#58a6ff'];
+    for (let i = 0; i < 60; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+      piece.style.animationDelay = Math.random() * 1.5 + 's';
+      piece.style.width = (6 + Math.random() * 8) + 'px';
+      piece.style.height = (6 + Math.random() * 8) + 'px';
+      piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      container.appendChild(piece);
+    }
+    setTimeout(() => container.remove(), 6000);
+  }
+
+  /* ============================================================
+     FOCUS / POMODORO MODE
+     ============================================================ */
+  const focusModeBtn = document.getElementById('focusModeBtn');
+  const focusIndicator = document.getElementById('focusIndicator');
+  const focusTimerDisplay = document.getElementById('focusTimerDisplay');
+  let focusInterval = null;
+  let focusRemaining = 25 * 60;
+  let focusActive = false;
+
+  function renderFocusTimer() {
+    if (!focusTimerDisplay) return;
+    const m = Math.floor(focusRemaining / 60);
+    const s = focusRemaining % 60;
+    focusTimerDisplay.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+
+  focusModeBtn?.addEventListener('click', () => {
+    if (focusActive) {
+      clearInterval(focusInterval);
+      focusActive = false;
+      focusRemaining = 25 * 60;
+      focusIndicator?.classList.remove('active');
+      renderFocusTimer();
+    } else {
+      focusActive = true;
+      focusIndicator?.classList.add('active');
+      focusInterval = setInterval(() => {
+        focusRemaining = Math.max(0, focusRemaining - 1);
+        renderFocusTimer();
+        if (focusRemaining === 0) {
+          clearInterval(focusInterval);
+          focusActive = false;
+          focusIndicator?.classList.remove('active');
+          focusRemaining = 25 * 60;
+          renderFocusTimer();
+          alert('🎉 Focus session complete! Take a 5-minute break.');
+        }
+      }, 1000);
+    }
+  });
+
+  renderFocusTimer();
+
+  /* ============================================================
+     EXPORT PROGRESS AS JSON
+     ============================================================ */
+  window.exportRHCSAProgress = function() {
+    const data = {
+      progress,
+      streak: JSON.parse(localStorage.getItem(STREAK_KEY) || '{}'),
+      exportedAt: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'rhcsa-progress.json';
+    a.click(); URL.revokeObjectURL(url);
+  };
+
+  /* ============================================================
+     FOOTER SIDEBAR SYNC
+     ============================================================ */
+  const siteFooter = document.getElementById('siteFooter');
+  const origSidebarToggle = sidebarToggle;
+  if (origSidebarToggle && siteFooter) {
+    new MutationObserver(() => {
+      siteFooter.classList.toggle('expanded', mainContent.classList.contains('expanded'));
+    }).observe(mainContent, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  /* ============================================================
+     ENHANCED KEYBOARD SHORTCUTS
+     ============================================================ */
+  document.addEventListener('keydown', e => {
+    const active = document.activeElement;
+    const typing = ['INPUT', 'TEXTAREA', 'SELECT'].includes(active.tagName);
+
+    // Ctrl+K → Command Palette
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      if (cmdOverlay?.classList.contains('active')) closeCmdPalette();
+      else openCmdPalette();
+    }
+    // F → Flashcard Quiz
+    if (e.key === 'f' && !typing && !e.ctrlKey && !e.metaKey) {
+      if (!fcOverlay?.classList.contains('active')) openFlashcards();
+    }
+    // Escape → close modals
+    if (e.key === 'Escape') {
+      closeCmdPalette();
+      closeFlashcards();
+    }
+    // E → Export progress
+    if (e.key === 'e' && !typing && !e.ctrlKey && !e.metaKey) {
+      window.exportRHCSAProgress();
+    }
+  });
+
 });
